@@ -1,0 +1,19 @@
+  <input type="text" class="form-control" name="matricula" id="matricula" maxlength="11">
+  <script>
+      const matriculaInput = document.getElementById("matricula");
+      matriculaInput.addEventListener("input", function() {
+          let value = matriculaInput.value.replace(/[^A-Za-z0-9]/g, ""); // Remove tudo que não seja letra ou número
+          if (value.length > 3) value = value.slice(0, 3) + '-' + value.slice(3);  // valida a posicao actual da letra se for maior q 3 ele copia os valores já inseridos e adicione com hífen na frente com os próximos valores 
+          if (value.length > 8) value = value.slice(0, 8) + '-' + value.slice(8);
+          matriculaInput.value = value.toUpperCase(); // converte todas letras que estao sendo inseridas em letras maiúsculas
+          const regex = /^[A-Z]{3}-\d{4}-[A-Z]{2}$/; // valida, nos 3 primeiros serão apenas letras maiúsculas; /d(para aceitar qualquer number de o-9); e no final apenas duas letras de A-Z
+          if (regex.test(matriculaInput.value)) { // valida se est certo
+              matriculaInput.style.border = "2px solid green"; // Borda verde para válido
+              document.getElementById("mensagem").textContent = "";
+          } else { // se nao estiver...
+              matriculaInput.style.border = "2px solid red"; // Borda vermelha para inválido
+              document.getElementById("mensagem").textContent = "Formato inválido! Use: LLL-NNNN-AA";
+              document.getElementById("mensagem").style.color = "red";
+          }
+      });
+  </script>
